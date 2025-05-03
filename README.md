@@ -29,10 +29,20 @@ During the implementation we base our code mostly on Transformers from HuggingFa
 # Cite
 Please consider citing the following papers if you use our methods/code in your research:
 ```
-@article{liu2025modality,
-  title={Modality Interactive Mixture-of-Experts for Fake News Detection},
-  author={Liu, Yifan and Liu, Yaokun and Li, Zelin and Yao, Ruichen and Zhang, Yang and Wang, Dong},
-  journal={arXiv preprint arXiv:2501.12431},
-  year={2025}
+@inproceedings{liu2025modality_interactive,
+author = {Liu, Yifan and Liu, Yaokun and Li, Zelin and Yao, Ruichen and Zhang, Yang and Wang, Dong},
+title = {Modality Interactive Mixture-of-Experts for Fake News Detection},
+year = {2025},
+isbn = {9798400712746},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3696410.3714522},
+doi = {10.1145/3696410.3714522},
+booktitle = {Proceedings of the ACM on Web Conference 2025},
+pages = {5139–5150},
+numpages = {12},
+keywords = {fake news detection, mixture of experts, multimodal fusion, social good, social media},
+location = {Sydney NSW, Australia},
+series = {WWW '25}
 }
 ```
