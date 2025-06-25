@@ -251,13 +251,15 @@ class Vimoe_V2(nn.Module):
         self.image_attention = TokenAttention(self.unified_dim)
         self.mm_attention = TokenAttention(self.unified_dim)
 
+        '''
+        For ablation purposes
         for param in self.clip.parameters():
             param.requires_grad = False
         for param in self.text_model.parameters():
             param.requires_grad = False
         for param in self.image_model.parameters():
             param.requires_grad = False
-
+        '''
         # Register position IDs as buffers
         self.register_buffer('positional_mm', torch.zeros(self.batch_size, self.image_token_len + self.text_token_len, self.unified_dim))
         self.register_buffer('positional_image', torch.zeros(self.batch_size, self.image_token_len, self.unified_dim))
