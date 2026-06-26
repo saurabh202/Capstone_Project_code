@@ -533,8 +533,8 @@ class Vimoe_V2(nn.Module):
         image_only_output = self.image_alone_classifier(shared_image_feature_lite)
         text_only_output = self.text_alone_classifier(shared_text_feature_lite)
 
-        projected_mt = self.m_t_projection(m_t)
-        projected_mi = self.m_i_projection(m_i)
+        projected_mt = self.m_t_projection(m_t.pooler_output)
+        projected_mi = self.m_i_projection(m_i.pooler_output)
         expert_mask, interaction_loss = self.interaction_module(
             text_only_output,
             image_only_output,
@@ -632,4 +632,3 @@ if __name__ == "__main__":
     # checkpoint paths
     PATH = "/home/yifan40/MIMoE-FND/checkpoints/gossip/gossipcop_checkpoint.pkl"
     model.load_state_dict(torch.load(PATH))
-
