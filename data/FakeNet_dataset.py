@@ -26,7 +26,7 @@ class FakeNet_dataset(data.Dataset):
 
     def __init__(
         self,
-        root_path="/home/yifan40/multimodalFNDData/data/AAAI_dataset",
+        root_path="/content/dataset/AAAI_dataset",
         dataset="gossip",
         image_size=224,
         is_train=True,
