@@ -74,13 +74,14 @@ def collate_fn_english(data):
     labels = [i[0][3] for i in data]
     category = [0 for i in data]
     GT_path = [i[1] for i in data]
-    token_data = token_uncased.batch_encode_plus(
-        batch_text_or_text_pairs=sents,
-        truncation=True,
-        padding="max_length",
-        max_length=word_token_length,
-        return_tensors="pt",
-        return_length=True,
+    token_data = token_uncased(
+    text=sents,
+    truncation=True,
+    padding="max_length",
+    max_length=word_token_length,
+    return_tensors="pt",
+    return_length=True,
+
     )
     clip_inputs = clip_processor(
         text=sents,
@@ -114,13 +115,14 @@ def collate_fn_chinese(data):
     labels = [i[0][3] for i in data]
     category = [0 for i in data]
     GT_path = [i[1] for i in data]
-    token_data = token_chinese.batch_encode_plus(
-        batch_text_or_text_pairs=sents,
-        truncation=True,
-        padding="max_length",
-        max_length=word_token_length,
-        return_tensors="pt",
-        return_length=True,
+    token_data = token_chinese(
+    text=sents,
+    truncation=True,
+    padding="max_length",
+    max_length=word_token_length,
+    return_tensors="pt",
+    return_length=True,
+    
     )
     clip_img_inputs = clip_chinese_processor.preprocess(
         images=image, return_tensors="pt"
