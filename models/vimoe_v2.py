@@ -439,6 +439,7 @@ class Vimoe_V2(nn.Module):
         token_type_ids,
         image,
         clip_inputs,
+        kg_embedding=None,
         image_aug=None,
         image_feature=None,
         text_feature=None,
