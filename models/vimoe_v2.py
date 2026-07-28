@@ -54,6 +54,17 @@ class InteractionModule(nn.Module):
             nn.Linear(self.unified_dim, self.unified_dim),
             nn.SiLU(),
             nn.Linear(self.unified_dim, 4),
+
+        )
+
+        # ==============================
+        # Knowledge Graph Projection
+        # ==============================
+        self.kg_projection = nn.Sequential(
+            nn.Linear(128, 64),      # GAT output -> unified dimension
+            nn.SiLU(),
+            nn.Linear(64, 64)
+            
         )
 
         self.agr_threshold = torch.tensor(agr_threshold, requires_grad=False)
@@ -89,7 +100,7 @@ class InteractionModule(nn.Module):
         balancing_loss = F.mse_loss(distribution, target_distribution)
         return balancing_loss
 
-    def forward(self, p_t, p_i, e_t, e_i, m_t, m_i):
+    def forward(self, p_t, p_i, e_t, e_i, m_t, m_i,kg_embedding=None,):
         # Compute supervision signal
         js_div = self.jsd_module(p_t, p_i)
         clip_score = self.clip_similarity(m_t, m_i)
@@ -103,6 +114,16 @@ class InteractionModule(nn.Module):
         )
 
         gate_inputs, _ = self.modality_attn(stacked_features)
+
+        # -------------------------------
+        # Knowledge-guided routing
+        # -------------------------------
+        if kg_embedding is not None:
+            kg_feature = self.kg_projection(kg_embedding)
+            gate_inputs = gate_inputs + kg_feature
+
+        
+        
         gate_logits = self.soft_gate(gate_inputs)
         targets = 2 * agr_gate_scores + sem_gate_scores
 
