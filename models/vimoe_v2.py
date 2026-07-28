@@ -565,6 +565,7 @@ class Vimoe_V2(nn.Module):
             shared_text_feature_lite,
             projected_mt,
             projected_mi,
+            kg_embedding=kg_embedding,
         )
 
         ## WEIGHTED MULTIMODAL FEATURES
