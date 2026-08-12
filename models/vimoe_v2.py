@@ -66,14 +66,6 @@ class InteractionModule(nn.Module):
             nn.Linear(64, 64)
             
         )
-        # ==============================
-        # Knowledge-Guided Interaction (Exp 8)
-        # ==============================
-        self.interaction_mlp = nn.Sequential(
-            nn.Linear(64 * 4, 128),
-            nn.SiLU(),
-            nn.Linear(128, 64)
-        )
 
         self.agr_threshold = torch.tensor(agr_threshold, requires_grad=False)
         self.sem_threshold = torch.tensor(sem_threshold, requires_grad=False)
@@ -124,18 +116,11 @@ class InteractionModule(nn.Module):
         gate_inputs, _ = self.modality_attn(stacked_features)
 
         # -------------------------------
-        # Knowledge-guided interaction (Exp 8)
+        # Knowledge-guided interaction 
         # -------------------------------
         if kg_embedding is not None:
             kg_feature = self.kg_projection(kg_embedding)
-            interaction = torch.cat([
-                gate_inputs,
-                kg_feature,
-                gate_inputs * kg_feature,
-                torch.abs(gate_inputs - kg_feature)
-            ], dim=1)
-            h_enhanced = self.interaction_mlp(interaction)
-            gate_inputs = gate_inputs + h_enhanced
+            gate_inputs = gate_inputs + kg_feature
 
         
         
